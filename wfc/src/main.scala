@@ -213,7 +213,26 @@ object Main {
     }
   }
 
-  def main(args: Array[String]): Unit = {
+  def main2(args: Array[String]): Unit = {
     printGrid(ell, wfc(ell, (8, 8), seed=1209))
+  }
+  def main(args: Array[String]): Unit = {
+    val tiles = new mxgmn.OverlappedTileSet("Skyline.png", 2, symmetry=2)
+    /*val tiles = new mxgmn.TileSet {
+      def size: Int = 2
+
+      def weight(i: Int): Double = 1
+
+      def propagator(dir: Int, i: Int): Set[Int] = {
+        Set(1 - i)
+      }
+    }*/
+    val m = new mxgmn.Model(32, 32, tiles)(new Random(46))
+    m.run(20000)
+    println(m.result.map(_.toSeq))
+    if (m.result.nonEmpty) {
+      val img = tiles.interpret(m.result.get, 32, 32)
+      javax.imageio.ImageIO.write(img, "png", new java.io.File("out.png"))
+    }
   }
 }
