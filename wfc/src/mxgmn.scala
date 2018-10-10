@@ -28,8 +28,9 @@ object mxgmn {
       val C = colors.size
       val W = ipow(C, N * N)
 
-      def pattern(f: (Int, Int) => Byte): Array[Byte] = Array.tabulate(N * N) { i => f(i / N, i % N) }
-      def patternFromSample(x: Int, y: Int): Array[Byte] = pattern { (dx, dy) => sample((x + dx) % SMX)((y + dy) % SMY) }
+      def pattern(f: (Int, Int) => Byte): Array[Byte] = Array.tabulate(N * N) { i => f(i % N, i / N) }
+      def patternFromSample(x: Int, y: Int): Array[Byte] =
+        pattern { (dx, dy) => sample((x + dx) % SMX)((y + dy) % SMY) }
       def rotate(p: Array[Byte]): Array[Byte] = pattern { (x, y) => p(N - 1 - y + x * N) }
       def reflect(p: Array[Byte]): Array[Byte] = pattern { (x, y) => p(N - 1 - x + y * N) }
 

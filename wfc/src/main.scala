@@ -229,7 +229,6 @@ object Main {
     }*/
     val m = new mxgmn.Model(32, 32, tiles)(new Random(46))
     m.run(20000)
-    println(m.result.map(_.toSeq))
     if (m.result.nonEmpty) {
       val img = tiles.interpret(m.result.get, 32, 32)
       javax.imageio.ImageIO.write(img, "png", new java.io.File("out.png"))
